@@ -1,0 +1,35 @@
+{
+  "name": "sicp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    }
+  },
+  "prettier": {
+    "semi": false,
+    "trailingComma": "all",
+    "singleQuote": true
+  },
+  "scripts": {
+    "test": "jest .",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "husky": "^7.0.4",
+    "jest": "^27.4.5",
+    "prettier": "^2.5.1",
+    "pretty-quick": "^3.1.3",
+    "ts-jest": "^27.1.2",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "mqtt": "^4.3.4"
+  }
+}

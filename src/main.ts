@@ -18,7 +18,7 @@ client.on('connect', function () {
         client.publish('gps', message)
       }, 1000)
     } else {
-      console.log(`Error: ${err}`)
+      console.log(`Error: ${err || 'unknown error'}`)
     }
   })
 })
@@ -26,17 +26,10 @@ client.on('connect', function () {
 client.on('message', function (topic: string, message: Buffer) {
   const [sender, lat, lon] = message.toString().split(',')
   if (sender !== uuid) {
-    let distance =
-      Math.round(
-        1000 *
-          distanceBetween(
-            parseFloat(lat),
-            parseFloat(lon),
-            gps.coord.lat,
-            gps.coord.lon,
-          ),
-      ) / 1000
-    console.log(`${sender}: ${distance}km`)
+    const distance = distanceBetween(
+      { lat: parseFloat(lat), lon: parseFloat(lon) },
+      gps.coord,
+    )
+    console.log(`${sender}: ${Math.round(1000 * distance) / 1000}km`)
   }
-  // client.end();
 })

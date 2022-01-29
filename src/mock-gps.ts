@@ -1,7 +1,4 @@
-export type gpsCoord = {
-  lat: number
-  lon: number
-}
+import { gpsCoord } from './types'
 
 export class MockGPS {
   coord: gpsCoord

@@ -16,7 +16,7 @@
   "scripts": {
     "test": "jest .",
     "prepare": "husky install",
-    "start": "ts-node main.ts"
+    "start": "ts-node src/main.ts"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,9 @@
+services:
+  mqtt:
+    image: eclipse-mosquitto
+    volumes:
+      - ./mosquitto/:/mosquitto/
+    ports:
+      - '9001:9001'
+      - '8883:8883'
+    container_name: 'mqtt'

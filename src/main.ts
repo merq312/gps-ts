@@ -30,6 +30,8 @@ client.on('message', function (topic: string, message: Buffer) {
       { lat: parseFloat(lat), lon: parseFloat(lon) },
       gps.coord,
     )
-    console.log(`${sender}: ${Math.round(1000 * distance) / 1000}km`)
+    console.log(
+      `${sender.split('-')[0]}: ${Math.round(1000 * distance) / 1000}km`,
+    )
   }
 })

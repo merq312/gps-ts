@@ -21,6 +21,7 @@ client.on('connect', function () {
       }, 1000)
     } else {
       console.log(`Error: ${err || 'unknown error'}`)
+      client.end()
     }
   })
 })
@@ -28,12 +29,17 @@ client.on('connect', function () {
 client.on('message', function (topic: string, message: Buffer) {
   const [sender, lat, lon] = message.toString().split(',')
   if (sender !== uuid) {
-    const distance = distanceBetween(
-      { lat: parseFloat(lat), lon: parseFloat(lon) },
-      gps.coord,
-    )
-    lastKnownDistances[sender.split('-')[0]] = `${distance.toFixed(3)} km`
-    drawBox()
+    try {
+      const distance = distanceBetween(
+        { lat: parseFloat(lat), lon: parseFloat(lon) },
+        gps.coord,
+      )
+      lastKnownDistances[sender.split('-')[0]] = `${distance.toFixed(3)} km`
+      drawBox()
+    } catch (err) {
+      console.log(`Error: ${err}`)
+      client.end()
+    }
   }
 })
 

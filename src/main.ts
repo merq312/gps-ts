@@ -1,11 +1,10 @@
 import { MockGPS } from './mock-gps'
-import { v4 as uuidv4 } from 'uuid'
 import * as mqtt from 'mqtt'
 import { distanceBetween } from './utils'
 import * as blessed from 'blessed'
 
 const gps = new MockGPS()
-const uuid = uuidv4()
+const uuid = Math.random().toString(16).substring(2, 10)
 const lastKnownDistances: Record<string, string> = {}
 
 // const client = mqtt.connect("mqtt://test.mosquitto.org");
@@ -34,7 +33,7 @@ client.on('message', function (topic: string, message: Buffer) {
         { lat: parseFloat(lat), lon: parseFloat(lon) },
         gps.coord,
       )
-      lastKnownDistances[sender.split('-')[0]] = `${distance.toFixed(3)} km`
+      lastKnownDistances[sender] = `${distance.toFixed(3)} km`
       drawBox()
     } catch (err) {
       console.log(`Error: ${err}`)
@@ -64,7 +63,7 @@ const box = blessed.box({
 
 function drawBox() {
   let content = '# jca gps tui\n'
-  content += `self id: ${uuid}\n`
+  content += `client id: ${uuid}\n`
   content += `current location: ${gps.coord.lat}, ${gps.coord.lon}\n\n`
 
   for (const [key, value] of Object.entries(lastKnownDistances)) {

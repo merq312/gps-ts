@@ -18,18 +18,18 @@ export function distanceBetween(coord1: gpsCoord, coord2: gpsCoord) {
 
   const radiusAvg = 6371
 
-  const deltaLat = degToRad(coord2.lat - coord1.lat)
-  const deltaLon = degToRad(coord2.lon - coord1.lon)
+  const deltaLatDiv2 = degToRad(coord2.lat - coord1.lat) / 2
+  const deltaLonDiv2 = degToRad(coord2.lon - coord1.lon) / 2
 
-  coord1.lat = degToRad(coord1.lat)
-  coord2.lat = degToRad(coord2.lat)
+  const lat1 = degToRad(coord1.lat)
+  const lat2 = degToRad(coord2.lat)
 
   const a =
-    Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
-    Math.sin(deltaLon / 2) *
-      Math.sin(deltaLon / 2) *
-      Math.cos(coord1.lat) *
-      Math.cos(coord2.lat)
+    Math.sin(deltaLatDiv2) * Math.sin(deltaLatDiv2) +
+    Math.sin(deltaLonDiv2) *
+      Math.sin(deltaLonDiv2) *
+      Math.cos(lat1) *
+      Math.cos(lat2)
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
   return radiusAvg * c

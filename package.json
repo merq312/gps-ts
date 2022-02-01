@@ -15,6 +15,7 @@
   },
   "scripts": {
     "test": "jest .",
+    "test:coverage": "jest . --coverage",
     "prepare": "husky install",
     "start": "ts-node src/main.ts"
   },
